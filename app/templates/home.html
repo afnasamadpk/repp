@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+{% endblock %}
+
+{% block content %}
+    <div class="container " >
+        
+        <div class=" d-flex  " >
+            {% for post in posts %}
+            <div class=" card text-dark mb-3 m-4 " style="max-width: 20rem;text-align: center;">
+                <h4 class="card-header">{{post.name|title}}</h4>
+                <div class="card-body">
+                
+                    <img style="width:120px;" src="{{ post.image.url }}" alt="">
+                    <h5 style="color: rgb(16, 172, 29);" class="card-title"> {{post.post.all|length}} </h5>
+                    <button data-id="{{ post.id }}" class="like-btn"><i class="fas fa-heart"></i></a></button>
+
+
+                </div>
+
+       
+            </div> 
+            {% endfor %}
+
+    </div>
+            <script>
+                $(document).ready(function(){
+                    $('.like-btn').click(function(){
+
+                        var id = $(this).data('id')
+                        
+                        $.get(`/likes/${id}/`,(res)=>{
+                            console.log(res)
+                            $(this).prev().text(res)
+
+                        })
+                    })
+                })
+            </script>
+
+        
+        
+    
+{% endblock %}
